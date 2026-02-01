@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QwickAttend ID Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: white;
+        }
+        @media print {
+            @page {
+                size: auto;
+                margin: 10mm;
+            }
+            body {
+                /* Reset body for print but don't force colors globally with !important if it breaks components */
+                background-color: white;
+                color: black;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            
+            /* Reset the main container background */
+            #root, main, .min-h-screen {
+                background-color: white;
+                min-height: 0 !important;
+                height: auto !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            /* Protect the Card Colors */
+            .id-card-front, .id-card-back {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                /* Ensure text color set via inline style is respected */
+                color-adjust: exact !important;
+            }
+
+            /* Grid layout for printing */
+            .cards-grid {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr; /* Two columns for efficiency if they fit, or 1fr */
+                gap: 20px;
+                padding: 0 !important;
+            }
+            
+            /* Ensure cards don't split across pages */
+            .id-card-wrapper {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                margin-bottom: 20px;
+                /* Remove border for cleaner print or keep as guide */
+                border: 1px dashed #ddd; 
+                padding: 10px;
+                display: flex;
+                justify-content: center;
+            }
+
+            /* Remove the layout styles that center/pad the card wrapper on screen */
+            .id-card-inner-wrapper {
+                background-color: transparent !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+                gap: 20px !important; /* Maintain gap between front and back */
+            }
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+    "qrcode.react": "https://esm.sh/qrcode.react@^4.2.0",
+    "qrcode-generator": "https://esm.sh/qrcode-generator@1.4.4",
+    "html-to-image": "https://esm.sh/html-to-image@1.11.11",
+    "jspdf": "https://esm.sh/jspdf@2.5.1"
+  }
+}
+</script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>
