@@ -144,33 +144,41 @@ const App: React.FC = () => {
         compress: true // Enable PDF compression
       });
 
-      // Requested Size: 80mm x 136mm
+      // --- SPECIFICATION COMPLIANCE ---
+      // Paper: A4 (210mm x 297mm)
+      // Card Size: 80mm x 136mm
       const CARD_WIDTH = 80;
       const CARD_HEIGHT = 136; 
       
       const PAGE_WIDTH = 210;
       const PAGE_HEIGHT = 297;
       
-      const GAP_X = 10; // Horizontal gap between columns
-      const GAP_Y = 10; // Vertical gap between rows
+      // Gaps: 10mm Horizontal, 10mm Vertical
+      const GAP_X = 10; 
+      const GAP_Y = 10; 
       
-      // Calculate layout for 2x2 grid (4 backs per page)
+      // Layout: 2 Columns x 2 Rows (4 Cards per Page)
       const GRID_COLS = 2;
       const GRID_ROWS = 2;
       const ITEMS_PER_PAGE = GRID_COLS * GRID_ROWS;
 
+      // Derived Grid Dimensions
+      // Width: (80 * 2) + 10 = 170mm
       const GRID_WIDTH = (CARD_WIDTH * GRID_COLS) + (GAP_X * (GRID_COLS - 1));
+      // Height: (136 * 2) + 10 = 282mm
       const GRID_HEIGHT = (CARD_HEIGHT * GRID_ROWS) + (GAP_Y * (GRID_ROWS - 1));
 
-      // Margins to center the grid
+      // Margins (Centering)
+      // Left: (210 - 170) / 2 = 20mm
       const MARGIN_LEFT = (PAGE_WIDTH - GRID_WIDTH) / 2;
+      // Top: (297 - 282) / 2 = 7.5mm
       const MARGIN_TOP = (PAGE_HEIGHT - GRID_HEIGHT) / 2;
 
       const drawCropMarks = (x: number, y: number, w: number, h: number) => {
-        const len = 4; // length of crop mark line
-        const offset = 2; // distance from corner
+        const len = 4; // Spec: 4mm length
+        const offset = 2; // Spec: 2mm offset
         doc.setDrawColor(0, 0, 0); // Black
-        doc.setLineWidth(0.1);
+        doc.setLineWidth(0.1); // Spec: 0.1mm thickness
 
         // Top Left
         doc.line(x - offset - len, y, x - offset, y); 
@@ -224,7 +232,12 @@ const App: React.FC = () => {
           const colIndex = indexOnPage % GRID_COLS; // 0 or 1
           const rowIndex = Math.floor(indexOnPage / GRID_COLS); // 0 or 1
 
+          // Coordinate Calculation
+          // Col 0 X: 20 + 0 = 20mm
+          // Col 1 X: 20 + 90 = 110mm
           const x = MARGIN_LEFT + (colIndex * (CARD_WIDTH + GAP_X));
+          // Row 0 Y: 7.5 + 0 = 7.5mm
+          // Row 1 Y: 7.5 + 146 = 153.5mm
           const y = MARGIN_TOP + (rowIndex * (CARD_HEIGHT + GAP_Y));
 
           // Add Image

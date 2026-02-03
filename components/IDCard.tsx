@@ -25,7 +25,7 @@ const IDCard: React.FC<IDCardProps> = ({ student, config, id }) => {
   const cardStyle: React.CSSProperties = {
     backgroundColor: config.cardBgColor,
     color: config.textColor,
-    borderColor: 'rgba(30, 41, 59, 1)', // slate-800
+    borderColor: '#d1d5db', // Subtle gray requested (gray-300)
     printColorAdjust: 'exact',
     WebkitPrintColorAdjust: 'exact',
   };
@@ -34,7 +34,7 @@ const IDCard: React.FC<IDCardProps> = ({ student, config, id }) => {
     <div id={id} className="id-card-inner-wrapper flex items-center justify-center p-4 bg-transparent rounded-xl">
       {/* BACK SIDE ONLY - 80mm x 136mm -> 400px x 680px (1:5 Scale) */}
       <div 
-        className="id-card-back relative w-[400px] h-[680px] rounded-[16px] overflow-hidden shadow-2xl flex flex-col items-center px-8 py-8 shrink-0 border-[4px] justify-between"
+        className="id-card-back relative w-[400px] h-[680px] rounded-[16px] overflow-hidden shadow-2xl flex flex-col items-center px-8 py-8 shrink-0 border-[1px] justify-between"
         style={cardStyle}
       >
         
